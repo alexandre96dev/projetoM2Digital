@@ -14,7 +14,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   m2_equipes.init({
-    id: DataTypes.INTEGER,
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
+    },
     nome: DataTypes.STRING,
     ativo: DataTypes.INTEGER
   }, {

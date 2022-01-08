@@ -10,11 +10,17 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      m2_usuarios.hasOne(models.m2_equipes)
       
     }
   };
   m2_usuarios.init({
-    id: DataTypes.INTEGER,
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
+    },
     nome: DataTypes.STRING,
     password: DataTypes.STRING,
     login: DataTypes.STRING,
