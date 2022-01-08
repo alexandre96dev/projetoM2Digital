@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   m2_equipes.init({
-    idequipe: DataTypes.INTEGER,
+    id: DataTypes.INTEGER,
     nome: DataTypes.STRING,
     ativo: DataTypes.INTEGER
   }, {
