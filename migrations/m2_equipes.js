@@ -22,5 +22,4 @@ const m2_equipes = sequelize.define('m2_equipes',{
       allowNull: false,
     }
 })
-
-module.exports = m2_equipes
+m2_equipes.sync({force:true})

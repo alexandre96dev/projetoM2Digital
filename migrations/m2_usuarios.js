@@ -1,12 +1,26 @@
 const Sequelize = require('sequelize');
-
 //CONEXÃO COM O BANCO
+
 const sequelize = new Sequelize({
   dialect: 'sqlite',
   storage: 'database.sqlite'
 });
-
-const m2_equipes = require('./m2_equipes')
+const m2_equipes = sequelize.define('m2_equipes',{
+  id:{
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false,
+  },
+  nome: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  ativo: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  }
+})
 const m2_usuarios = sequelize.define('m2_usuarios',{
   id: {
     type: Sequelize.INTEGER,
@@ -39,5 +53,7 @@ const m2_usuarios = sequelize.define('m2_usuarios',{
     allowNull: false,
   },
 })
+
+m2_equipes.belongsTo(m2_usuarios)
 m2_usuarios.hasOne(m2_equipes)
-module.exports = m2_usuarios
+m2_usuarios.sync({force:true})
