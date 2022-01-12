@@ -29,19 +29,19 @@ const m2_usuarios = sequelize.define('m2_usuarios',{
     allowNull: false,
   },
   nome: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING(150),
     allowNull: false,
   },
   password: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING(150),
     allowNull: false,
   },
   login: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING(30),
     allowNull: false,
   },
   idequipe: {
-    type: Sequelize.STRING,
+    type: Sequelize.INTEGER,
     allowNull: false,
     references: {
       model: m2_equipes,

@@ -24,19 +24,7 @@ app.use(cors())
 
 app.use(express.json())
 
-// m2_equipes.create({
-//     nome: 'teste',
-//     ativo: 1
-// })
-// usuarios.create({
-//     nome: "Ana",
-//     password: "teste",
-//     login: "teste",
-//     idequipe: 1,
-//     ativo: 1
-// })
 
-//console.log(m2_equipes)
 var tokenAuth;
 
 app.route('/auth').get((req, res) => {
