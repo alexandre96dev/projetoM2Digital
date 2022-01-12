@@ -6,6 +6,7 @@
 ### node migrations/m2_usuarios.js
 ### node seeds/m2_equipes_seed.js
 ### node seeds/m2_usuarios_seed.js
+### node app.js
 
 ## Comandos para rodar a aplicação via Docker
 
