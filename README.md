@@ -1,10 +1,5 @@
-# Olá
-## Tudo bem com você?!
-### Estamos aqui!
-
-
 # projetoM2Digital
-
+## Versão do node: 16.13.2
 ## Comandos para rodar a aplicação no localhost
 ### npm install
 ### node migrations/m2_equipes.js
