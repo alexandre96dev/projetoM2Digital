@@ -39,5 +39,5 @@ const m2_usuarios = sequelize.define('m2_usuarios',{
     allowNull: false,
   },
 })
-m2_usuarios.hasOne(m2_equipes)
+
 module.exports = m2_usuarios
