@@ -6,10 +6,10 @@ const sequelize = new Sequelize({
     dialect: 'sqlite',
     storage: 'database.sqlite'
 });
-const m2_equipes = require('./models/m2_equipes.js')
+const equipes = require('./models/m2_equipes.js')
 const usuarios = require('./models/m2_usuarios.js');
 
-
+usuarios.belongsTo(equipes, { foreignKey: 'idequipe' })
 app.listen(5500, () => console.log('Rodando na porta 5500'))
 
 
@@ -31,19 +31,41 @@ app.use(express.json())
 // })
 
 //console.log(m2_equipes)
+app.route('/login').post((req, res) => 
+    usuarios.findAll({
+        include: [
+            {
+                model: equipes,
+                required: true,
+                where:{
+                    ativo: 1,
+                    login: req.body.login,
+                    password: req.body.password
+                }
+                ,
+                attributes: ["nome"] // empty array means that no column from ModelB will be returned
+            }
+        ],
+        where: { ativo: 1}
+    }).then(function (usuarios) {
+        res.json(usuarios);
+    })
+)
 
 app.route('/usuarios').get((req, res) => 
     usuarios.findAll({
         include: [
             {
-                model: m2_equipes,
+                model: equipes,
                 required: true,
-                on: {
-                    col1: sequelize.where(sequelize.col("m2_equipe.id"), "=", sequelize.col("m2_usuarios.idequipe")),
-                },
+                where:{
+                    ativo: 1
+                }
+                ,
                 attributes: ["nome"] // empty array means that no column from ModelB will be returned
             }
-        ]
+        ],
+        where: { ativo: 1}
     }).then(function (usuarios) {
         res.json(usuarios);
     })
@@ -59,5 +81,91 @@ app.route('/usuarios/').post((req, res) =>
             ativo: req.body.ativo 
         })
         res.json('usuario cadastrado com sucesso !') 
+    }
+)
+app.route('/usuarios/').put((req, res) => 
+    {
+        usuarios.update({
+            nome: req.body.nome, 
+            password: req.body.password,
+            login: req.body.login,
+            idequipe: req.body.idequipe,
+            ativo: req.body.ativo 
+        },
+        {
+            where: {
+                id:req.body.usuarioId
+            }
+        }
+        ).then(function () {
+            res.json("usuario atualizado")
+        }) 
+    }
+)
+
+app.route('/usuarios').delete((req, res) => 
+    {
+        console.log(req.body)
+        usuarios.update({
+            ativo: 0 
+        },
+        {
+            where: {
+                id:req.body.id
+            }
+        }
+        ).then(function () {
+            res.json("usuario desativado")
+        }) 
+    }
+)
+
+app.route('/equipes').get((req, res) => 
+    equipes.findAll({
+        where: { ativo: 1}
+    }).then(function (equipes) {
+        res.json(equipes);
+    })
+)
+
+app.route('/equipes/').post((req, res) => 
+    {
+        equipes.create({
+            nome: req.body.nome, 
+            ativo: req.body.ativo 
+        })
+        res.json('equipe cadastrada com sucesso !') 
+    }
+)
+app.route('/equipes/').put((req, res) => 
+    {
+        equipes.update({
+            nome: req.body.nome, 
+            ativo: req.body.ativo 
+        },
+        {
+            where: {
+                id:req.body.equipeId
+            }
+        }
+        ).then(function () {
+            res.json("equipe atualizada")
+        }) 
+    }
+)
+
+app.route('/equipes/').delete((req, res) => 
+    {
+        equipes.update({
+            ativo: 0 
+        },
+        {
+            where: {
+                id:req.body.equipeId
+            }
+        }
+        ).then(function () {
+            res.json("equipe desativada")
+        }) 
     }
 )
