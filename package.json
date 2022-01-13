@@ -18,7 +18,10 @@
   "homepage": "https://github.com/Alexandre96dev/projetoM2Digital#readme",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^11.0.0",
+    "dotenv-safe": "^8.2.0",
     "express": "^4.17.2",
+    "jsonwebtoken": "^8.5.1",
     "sequelize": "^6.12.5",
     "sqlite": "^4.0.23",
     "sqlite3": "^5.0.2"

@@ -14,7 +14,7 @@ const m2_equipes = sequelize.define('m2_equipes',{
         allowNull: false,
     },
     nome: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(150),
       allowNull: false,
     },
     ativo: {
